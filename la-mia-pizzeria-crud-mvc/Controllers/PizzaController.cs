@@ -11,19 +11,26 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             using (PizzeriaContext db = new PizzeriaContext())
             {
                 List<Pizza> pizzasList = db.Pizzas.ToList<Pizza>();
-                
+
                 return View("index", pizzasList);
             }
         }
 
         public IActionResult Details(int id)
         {
-            using(PizzeriaContext db = new PizzeriaContext())
+            using (PizzeriaContext db = new PizzeriaContext())
             {
                 // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
                 Pizza? foundedPizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
-                return View("Details", foundedPizza);
+                if (foundedPizza == null)
+                {
+                    return NotFound($"La pizza con id {id} non è stata trovata");
+                }
+                else
+                {
+                    return View("Details", foundedPizza);
+                }
             }
         }
     }
