@@ -5,7 +5,7 @@
 @model Pizza
 
 <div class="container py-5">
-    <div class="row justify-content-center">
+    <div class="row d-flex justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <img src="@Model.PathImage" class="card-img-top" alt="@Model.Name">
@@ -16,5 +16,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="py-3 d-flex justify-content-center">
+        <a class="btn btn-warning" href="/Pizza/Index">Torna alla Home</a>
     </div>
 </div>
