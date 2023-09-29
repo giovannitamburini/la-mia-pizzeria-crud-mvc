@@ -26,6 +26,7 @@ else
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Price $</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,7 @@ else
                                 <td>@pizza.Name</td>
                                 <td>@pizza.Description</td>
                                 <td>@pizza.Price $</td>
+                                <td><a class="btn btn-info" href="@Url.Action("Details", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-magnifying-glass"></i></a></td>
                             </tr>
                         }
 
