@@ -28,7 +28,7 @@ namespace la_mia_pizzeria_crud_mvc
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Pizza}/{action=Index}/{id?}");
 
             app.Run();
         }
