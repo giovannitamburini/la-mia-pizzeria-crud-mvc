@@ -3,7 +3,7 @@
 }
 
 
-@{
+@* @{
     List<Pizza> pizzaList = new List<Pizza>();
 
     pizzaList.Add(new Pizza(1,"margherita", "Pomodoro, mozzarella, basilico", "margherita.jpg", 5.99f));
@@ -13,7 +13,7 @@
     pizzaList.Add(new Pizza(5,"americana", "Pomodoro, mozzarella, patatine fritte, wurstel", "wurstel-patatine.jpg", 6.50f));
     pizzaList.Add(new Pizza(6,"quattro formaggi", "Mozzarella, gorgonzola, fontina, parmigiano", "quattro_formaggi.jpg", 7.00f));
     pizzaList.Add(new Pizza(7,"ortolana", "Mozzarella, pomodorini, zucchine, melanzane, peperoni", "ortolana.jpg", 8.00f));
-}
+} *@
 
 
 <div class="container">
@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(Pizza pizza in pizzaList)
+                   @*  @foreach(Pizza pizza in pizzaList)
                     {
                         <tr>
                             <th scope="row">@pizza.Id</th>
@@ -44,7 +44,7 @@
                             <td>@pizza.Description</td>
                             <td>@pizza.Price $</td>
                         </tr>
-                    }
+                    } *@
                 </tbody>
             </table>
 

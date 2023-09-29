@@ -2,7 +2,7 @@
     Layout = "User/_UserLayout";
 }
 
-@{
+@* @{
     List<Pizza> userPizzaList = new List<Pizza>();
 
     userPizzaList.Add(new Pizza(1, "margherita", "Pomodoro, mozzarella, basilico", "margherita.jpg", 5.99f));
@@ -13,12 +13,12 @@
     userPizzaList.Add(new Pizza(6, "quattro formaggi", "Mozzarella, gorgonzola, fontina, parmigiano", "quattro_formaggi.jpg", 7.00f));
     userPizzaList.Add(new Pizza(7, "ortolana", "Mozzarella, pomodorini, zucchine, melanzane, peperoni", "ortolana.jpg", 8.00f));
 }
-
+ *@
 <div class="container">
 
     <div class="gap-4 d-flex justify-content-center row">
 
-        @foreach(Pizza pizza in userPizzaList)
+        @* @foreach(Pizza pizza in userPizzaList)
         {
             <div class="card" style="width: 18rem;">
                 <img src="~/img/@pizza.PathImage" class="card-img-top" alt="...">
@@ -34,6 +34,6 @@
                     <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
-        }
+        } *@
     </div>
 </div>
