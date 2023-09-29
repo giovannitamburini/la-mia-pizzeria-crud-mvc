@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "Admin/_MyLayout";
+}
+
+@model Pizza
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <img src="@Model.PathImage" class="card-img-top" alt="@Model.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">@Model.Description</p>
+                    <p class="card-text">Prezzo: $@Model.Price $</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
