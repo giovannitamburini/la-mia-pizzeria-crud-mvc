@@ -62,5 +62,13 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 }
             }
         }
+
+        // create
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View("Create");
+        }
     }
 }

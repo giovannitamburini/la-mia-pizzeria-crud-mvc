@@ -14,6 +14,8 @@ namespace la_mia_pizzeria_crud_mvc.Models
         public string PathImage { get; set; }
         public float Price { get; set; }
 
+        public Pizza() { }
+
         public Pizza(string name, string description, string pathImage, float price)
         {
             this.Name = name;
