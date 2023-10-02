@@ -22,6 +22,8 @@ namespace la_mia_pizzeria_crud_mvc.Models
         [MaxLength(500)]
         [Required(ErrorMessage = "Il campo del path immagine è obbligatorio")]
         [StringLength(500, ErrorMessage = "Il path dell'immagine non può superare i 500 caratteri")]
+        // validazione customizzata
+        [ValidFormatImage]
         public string PathImage { get; set; }
 
         [Required(ErrorMessage = "Il campo del prezzo è obbligatorio")]

@@ -39,7 +39,11 @@ else
                                 <td>@pizza.Name</td>
                                 <td>@pizza.Description</td>
                                 <td>@pizza.Price $</td>
-                                <td><a class="btn btn-info" href="@Url.Action("Details", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-magnifying-glass"></i></a></td>
+                                <td>
+                                    <a class="btn btn-info" href="@Url.Action("Details", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    <a class="btn btn-danger" href="#"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+
                             </tr>
                         }
 

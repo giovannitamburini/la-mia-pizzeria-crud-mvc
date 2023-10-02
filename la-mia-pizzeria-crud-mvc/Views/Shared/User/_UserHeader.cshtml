@@ -10,11 +10,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/Pizza/UserIndex">Home</a>
+                        <a class="nav-link active" aria-current="page" href=@Url.Action("UserIndex", "Pizza")>Home</a>
                     </li>
                     <li class="nav-item">
                         @* link pagina di amministrazione *@
-                        <a class="nav-link" href="/Pizza/Index">Admin Page</a>
+                        @* <a class="nav-link" href="/Pizza/Index">Admin Page</a> *@
+                        <a class="nav-link active" href=@Url.Action("Index", "Pizza")>Admin Page</a>
                     </li>
                 </ul>
             </div>
