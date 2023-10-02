@@ -70,5 +70,24 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             return View("Create");
         }
+
+        [HttpPost]
+        //meccanismo di sicurezza che aiuta a prevenire attacchi CSRF
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Pizza pizzaCreated)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", pizzaCreated);
+            }
+
+            using(PizzeriaContext db = new PizzeriaContext())
+            {
+                db.Pizzas.Add(pizzaCreated);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
