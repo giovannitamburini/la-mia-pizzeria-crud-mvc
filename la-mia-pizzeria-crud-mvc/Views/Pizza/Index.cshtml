@@ -16,9 +16,9 @@ else
 
             <div class="col-12">
 
-                <h1 class="py-5">Pizzas List</h1>
+                <h1 class="py-5 text-uppercase">Pizzas List</h1>
 
-                <table class="table table-dark table-hover table-bordered border-success caption-top">
+                <table class="table table-dark table-hover table-bordered caption-top">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
@@ -46,10 +46,13 @@ else
                     </tbody>
                 </table>
 
-                @* link per la create di pizza *@
-                <a class="btn btn-warning" href="@Url.Action("Create", "Pizza")">
-                    Aggiungi nuova pizza
-                </a>
+                <div class="text-center py-3">
+                    @* link per la create di pizza *@
+                    <a class="btn btn-warning" href="@Url.Action("Create", "Pizza")">
+                        Aggiungi nuova pizza
+                    </a>
+                </div>
+
 
             </div>
 

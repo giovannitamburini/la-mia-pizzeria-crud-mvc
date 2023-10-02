@@ -15,10 +15,10 @@
             <form asp-controller="Pizza" asp-action="Create" method="post">
 
                 @* per la sicurezza *@
-                @Html.AntiForgeryToken();
+                @Html.AntiForgeryToken()
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Nome" required asp-for="Name">
+                    <input type="text" class="form-control" placeholder="Inserisci Nome" required asp-for="Name">
                 </div>
 
                 <div class="mb-3">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <input type="number" class="form-control" placeholder="Prezzo" required asp-for="Price">
+                    <input type="text" class="form-control" placeholder="Prezzo" required asp-for="Price">
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Crea</button>
