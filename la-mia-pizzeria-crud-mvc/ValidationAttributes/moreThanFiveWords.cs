@@ -10,7 +10,7 @@ namespace la_mia_pizzeria_crud_mvc.ValidationAttributes
             {
                 string inputValue = (string)value;
 
-                if(inputValue == null || inputValue.Split(' ').Length <= 5)
+                if(inputValue == null || inputValue.Split(' ').Length < 5)
                 {
                     return new ValidationResult("La descrizione deve contenere almeno 5 parole");
                 }

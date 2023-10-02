@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using la_mia_pizzeria_crud_mvc.ValidationAttributes;
 
 namespace la_mia_pizzeria_crud_mvc.Models
 {
@@ -14,6 +15,8 @@ namespace la_mia_pizzeria_crud_mvc.Models
 
         [Column(TypeName = "text")]
         [Required(ErrorMessage = "Il campo della descrizione è obbligatorio")]
+        //validazione customizzata
+        [moreThanFiveWord]
         public string Description { get; set; }
 
         [MaxLength(500)]
