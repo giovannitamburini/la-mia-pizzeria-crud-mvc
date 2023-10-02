@@ -19,18 +19,22 @@
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Inserisci Nome" required asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Descrizione" required asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Path immagine" required asp-for="PathImage">
+                    <span asp-validation-for="PathImage" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Prezzo" required asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Crea</button>
