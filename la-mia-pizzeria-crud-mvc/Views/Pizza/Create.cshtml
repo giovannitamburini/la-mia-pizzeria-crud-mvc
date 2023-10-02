@@ -18,22 +18,22 @@
                 @Html.AntiForgeryToken()
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Inserisci Nome" required asp-for="Name">
+                    <input type="text" class="form-control" placeholder="Inserisci Nome" asp-for="Name">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Descrizione" required asp-for="Description">
+                    <input type="text" class="form-control" placeholder="Descrizione" asp-for="Description">
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Path immagine" required asp-for="PathImage">
+                    <input type="text" class="form-control" placeholder="Path immagine" asp-for="PathImage">
                     <span asp-validation-for="PathImage" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Prezzo" required asp-for="Price">
+                    <input type="text" class="form-control" placeholder="Prezzo" asp-for="Price">
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 
