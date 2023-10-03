@@ -1,6 +1,6 @@
 ﻿namespace la_mia_pizzeria_crud_mvc.CustomLoggers
 {
-    public class CustomFileLogger
+    public class CustomFileLogger : ICustomLogger
     {
         public void WriteLog(string message)
         {
