@@ -8,15 +8,19 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
     public class PizzaController : Controller
     {
         private CustomConsoleLogger _myLogger;
+        private CustomFileLogger _myFileLogger;
 
         public PizzaController()
         {
             _myLogger = new CustomConsoleLogger();
+            _myFileLogger = new CustomFileLogger();
         }
 
         public IActionResult Index()
         {
             _myLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
+
+            _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
 
             using (PizzeriaContext db = new PizzeriaContext())
             {
@@ -50,6 +54,8 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             using (PizzeriaContext db = new PizzeriaContext())
             {
                 _myLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
+
+                _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
                 List<Pizza> UserpizzasList = db.Pizzas.ToList<Pizza>();
 
