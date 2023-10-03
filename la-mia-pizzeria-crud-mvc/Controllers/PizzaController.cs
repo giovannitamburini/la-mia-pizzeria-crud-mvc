@@ -7,18 +7,24 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 {
     public class PizzaController : Controller
     {
-        private CustomConsoleLogger _myLogger;
-        private CustomFileLogger _myFileLogger;
+        // private CustomConsoleLogger _myConsoleLogger;
+        // private CustomFileLogger _myFileLogger;
 
-        public PizzaController()
+        private ICustomLogger _myConsoleLogger;
+        private ICustomLogger _myFileLogger;
+
+        public PizzaController(ICustomLogger _consoleLogger, ICustomLogger _fileLogger)
         {
-            _myLogger = new CustomConsoleLogger();
-            _myFileLogger = new CustomFileLogger();
+            //_myConsoleLogger = new CustomConsoleLogger();
+            //_myFileLogger = new CustomFileLogger();
+
+            _myConsoleLogger = _consoleLogger;
+            _myFileLogger = _fileLogger;
         }
 
         public IActionResult Index()
         {
-            _myLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
+            _myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
 
             _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
 
@@ -53,7 +59,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             using (PizzeriaContext db = new PizzeriaContext())
             {
-                _myLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
+                _myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
                 _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
