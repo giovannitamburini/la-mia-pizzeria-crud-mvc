@@ -89,5 +89,25 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        // update
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            using(PizzeriaContext db = new PizzeriaContext())
+            {
+                Pizza? pizzaToUpdate = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                if(pizzaToUpdate == null)
+                {
+                    return NotFound("La pizza che vorresti modificare non è stata trovata");
+                }
+                else
+                {
+                    return View("Update", pizzaToUpdate);
+                }
+            }
+        }
     }
 }
