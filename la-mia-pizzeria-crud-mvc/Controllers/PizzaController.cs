@@ -10,71 +10,92 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         // private CustomConsoleLogger _myConsoleLogger;
         // private CustomFileLogger _myFileLogger;
 
-        private ICustomLogger _myConsoleLogger;
+        //private ICustomLogger _myConsoleLogger;
         private ICustomLogger _myFileLogger;
 
-        public PizzaController(ICustomLogger _consoleLogger, ICustomLogger _fileLogger)
+        private PizzeriaContext _myDataBase;
+
+        public PizzaController(ICustomLogger _fileLogger, PizzeriaContext db)
         {
             //_myConsoleLogger = new CustomConsoleLogger();
             //_myFileLogger = new CustomFileLogger();
 
-            _myConsoleLogger = _consoleLogger;
+            //_myConsoleLogger = _consoleLogger;
             _myFileLogger = _fileLogger;
+
+            _myDataBase = db;
         }
 
         public IActionResult Index()
         {
-            _myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
+            //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
 
             _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
 
-            using (PizzeriaContext db = new PizzeriaContext())
-            {
-                List<Pizza> pizzasList = db.Pizzas.ToList<Pizza>();
+            List<Pizza> pizzasList = _myDataBase.Pizzas.ToList<Pizza>();
 
-                return View("index", pizzasList);
-            }
+            return View("index", pizzasList);
+
+            //using (PizzeriaContext db = new PizzeriaContext())
+            //{
+            //    List<Pizza> pizzasList = db.Pizzas.ToList<Pizza>();
+
+            //    return View("index", pizzasList);
+            //}
         }
 
         public IActionResult Details(int id)
         {
-            using (PizzeriaContext db = new PizzeriaContext())
-            {
-                // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
-                Pizza? foundedPizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
+            Pizza? foundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
-                if (foundedPizza == null)
-                {
-                    return NotFound($"La pizza con id {id} non è stata trovata");
-                }
-                else
-                {
-                    return View("Details", foundedPizza);
-                }
+            if (foundedPizza == null)
+            {
+                return NotFound($"La pizza con id {id} non è stata trovata");
             }
+            else
+            {
+                return View("Details", foundedPizza);
+            }
+
+            //using (PizzeriaContext db = new PizzeriaContext())
+            //{
+            //    // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
+            //    Pizza? foundedPizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+            //    if (foundedPizza == null)
+            //    {
+            //        return NotFound($"La pizza con id {id} non è stata trovata");
+            //    }
+            //    else
+            //    {
+            //        return View("Details", foundedPizza);
+            //    }
+            //}
         }
 
         // sezione per gli user
         public IActionResult UserIndex()
         {
-            using (PizzeriaContext db = new PizzeriaContext())
-            {
-                _myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
+            //using (PizzeriaContext db = new PizzeriaContext())
+            //{
+            //}
+                //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
                 _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
-                List<Pizza> UserpizzasList = db.Pizzas.ToList<Pizza>();
+                List<Pizza> UserpizzasList = _myDataBase.Pizzas.ToList<Pizza>();
 
                 return View("UserIndex", UserpizzasList);
-            }
         }
 
         public IActionResult UserDetails(int id)
         {
             using (PizzeriaContext db = new PizzeriaContext())
             {
+            }
                 // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
-                Pizza? userFoundedPizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza? userFoundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if (userFoundedPizza == null)
                 {
@@ -84,7 +105,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 {
                     return View("UserDetails", userFoundedPizza);
                 }
-            }
         }
 
         // create
@@ -105,13 +125,13 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 return View("Create", pizzaCreated);
             }
 
-            using(PizzeriaContext db = new PizzeriaContext())
-            {
-                db.Pizzas.Add(pizzaCreated);
-                db.SaveChanges();
+            //using(PizzeriaContext db = new PizzeriaContext())
+            //{
+            //}
+                _myDataBase.Pizzas.Add(pizzaCreated);
+                _myDataBase.SaveChanges();
 
                 return RedirectToAction("Index");
-            }
         }
 
         // update
@@ -121,7 +141,8 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             using(PizzeriaContext db = new PizzeriaContext())
             {
-                Pizza? pizzaToUpdate = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            }
+                Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if(pizzaToUpdate == null)
                 {
@@ -131,7 +152,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 {
                     return View("Update", pizzaToUpdate);
                 }
-            }
         }
 
         [HttpPost]
@@ -146,7 +166,8 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
             using(PizzeriaContext db = new PizzeriaContext())
             {
-                Pizza pizzaToUpdate = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            }
+                Pizza pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if(pizzaToUpdate != null)
                 {
@@ -155,7 +176,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                     pizzaToUpdate.PathImage = modifiedPizza.PathImage;
                     pizzaToUpdate.Price = modifiedPizza.Price;
 
-                    db.SaveChanges();
+                    _myDataBase.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
@@ -163,7 +184,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 {
                     return NotFound("Non è stata trovata la pizza da modificare");
                 }
-            }
         }
 
         [HttpPost]
@@ -171,15 +191,16 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         public IActionResult Delete(int id)
         {
-            using (PizzeriaContext db = new PizzeriaContext())
-            {
-                Pizza? pizzaToDelete = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            //using (PizzeriaContext db = new PizzeriaContext())
+            //{
+            //}
+                Pizza? pizzaToDelete = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if (pizzaToDelete != null)
                 {
-                    db.Pizzas.Remove(pizzaToDelete);
+                    _myDataBase.Pizzas.Remove(pizzaToDelete);
 
-                    db.SaveChanges();
+                    _myDataBase.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
@@ -187,7 +208,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 {
                     return NotFound("La pizza che vorresti eliminare non è stata trovata");
                 }
-            }
         }
     }
 }
