@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "Admin/_MyLayout";
+}
+
+@model Pizza
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <h1 class="py-4">Aggiungi una nuova Pizza</h1>
+
+            <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Id" method="post">
+
+                @* per la sicurezza *@
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Inserisci Nome" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Descrizione" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Path immagine" asp-for="PathImage">
+                    <span asp-validation-for="PathImage" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Prezzo" asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salva modifiche</button>
+            </form>
+
+        </div>
+    </div>
+</div>
