@@ -1,4 +1,5 @@
-﻿using la_mia_pizzeria_crud_mvc.Database;
+﻿using la_mia_pizzeria_crud_mvc.CustomLoggers;
+using la_mia_pizzeria_crud_mvc.Database;
 using la_mia_pizzeria_crud_mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,8 +7,17 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 {
     public class PizzaController : Controller
     {
+        private CustomConsoleLogger _myLogger;
+
+        public PizzaController()
+        {
+            _myLogger = new CustomConsoleLogger();
+        }
+
         public IActionResult Index()
         {
+            _myLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
+
             using (PizzeriaContext db = new PizzeriaContext())
             {
                 List<Pizza> pizzasList = db.Pizzas.ToList<Pizza>();
@@ -39,6 +49,8 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             using (PizzeriaContext db = new PizzeriaContext())
             {
+                _myLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
+
                 List<Pizza> UserpizzasList = db.Pizzas.ToList<Pizza>();
 
                 return View("UserIndex", UserpizzasList);
