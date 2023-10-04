@@ -17,6 +17,9 @@
                 @* per la sicurezza *@
                 @Html.AntiForgeryToken()
 
+                @* ci vuole anche l'input per l'id ma nascosto *@
+                <input type="hidden" asp-for="Id" />
+
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Inserisci Nome" asp-for="Name">
                     <span asp-validation-for="Name" class="text-danger"></span>

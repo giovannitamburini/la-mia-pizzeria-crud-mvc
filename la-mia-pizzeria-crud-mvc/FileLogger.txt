@@ -2,3 +2,4 @@
 03-10-2023 17:12:12 LOG: L'utente è entrato nella vista Pizza > UserIndex
 03-10-2023 17:12:16 LOG: L'utente è entrato nella vista Pizza > Index
 03-10-2023 17:12:18 LOG: L'utente è entrato nella vista Pizza > UserIndex
+04-10-2023 12:53:30 LOG: L'utente è entrato nella vista Pizza > Index
