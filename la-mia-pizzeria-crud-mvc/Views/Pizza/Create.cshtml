@@ -20,35 +20,42 @@
                 @Html.AntiForgeryToken()
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Inserisci Nome" asp-for="Pizza.Name">
+                    <label for="createname"><strong>Nome</strong></label>
+                    <input type="text" class="form-control" id="createname" placeholder="Inserisci Nome" asp-for="Pizza.Name">
                     <span asp-validation-for="Pizza.Name" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Descrizione" asp-for="Pizza.Description">
+                    <label for="createdescription"><strong>Descrizione</strong></label>
+                    <input type="text" class="form-control" id="createdescription" placeholder="Descrizione" asp-for="Pizza.Description">
                     <span asp-validation-for="Pizza.Description" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Path immagine" asp-for="Pizza.PathImage">
+                    <label for="createimage"><strong>Path immagine</strong></label>
+                    <input type="text" class="form-control" id="createimage" placeholder="Path immagine" asp-for="Pizza.PathImage">
                     <span asp-validation-for="Pizza.PathImage" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Prezzo" asp-for="Pizza.Price">
+                    <label for="createprice"><strong>Price</strong></label>
+                    <input type="text" class="form-control" id="createprice" placeholder="Prezzo" asp-for="Pizza.Price">
                     <span asp-validation-for="Pizza.Price" class="text-danger"></span>
                 </div>
 
                 @* select per la categoria *@
-                <select class="form-select" aria-label="Default select example" asp-for="Pizza.CategoryId">
-                    
-                    <option value="">Seleziona una categoria</option>
+                <div class="mb-3">
+                    <label for="createcategory"><strong>Categoria</strong></label>
+                    <select class="form-select" id="createcategory" aria-label="Default select example" asp-for="Pizza.CategoryId">
 
-                    @foreach (Category categ in Model.Categories)
-                    {
-                        <option value="@categ.Id">@categ.Name</option>
-                    }
-                </select>
+                        <option value="">Seleziona una categoria</option>
+
+                        @foreach (Category categ in Model.Categories)
+                        {
+                            <option value="@categ.Id">@categ.Name</option>
+                        }
+                    </select>
+                </div>
 
                 <button type="submit" class="btn btn-primary">Crea</button>
             </form>

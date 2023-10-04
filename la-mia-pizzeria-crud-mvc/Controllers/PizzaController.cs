@@ -139,6 +139,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             //using(PizzeriaContext db = new PizzeriaContext())
             //{
             //}
+
             Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
             if (pizzaToUpdate == null)
