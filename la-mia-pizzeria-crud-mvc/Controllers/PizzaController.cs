@@ -91,9 +91,9 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         public IActionResult UserDetails(int id)
         {
-            using (PizzeriaContext db = new PizzeriaContext())
-            {
-            }
+            //using (PizzeriaContext db = new PizzeriaContext())
+            //{
+            //}
                 // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
                 Pizza? userFoundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
@@ -139,9 +139,9 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            using(PizzeriaContext db = new PizzeriaContext())
-            {
-            }
+            //using(PizzeriaContext db = new PizzeriaContext())
+            //{
+            //}
                 Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if(pizzaToUpdate == null)
@@ -164,9 +164,9 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 return View("Update", modifiedPizza);
             }
 
-            using(PizzeriaContext db = new PizzeriaContext())
-            {
-            }
+            //using(PizzeriaContext db = new PizzeriaContext())
+            //{
+            //}
                 Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if(pizzaToUpdate != null)
