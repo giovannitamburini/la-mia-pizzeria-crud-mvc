@@ -156,7 +156,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public IActionResult Update(int id, Pizza modifiedPizza)
         {
             if (!ModelState.IsValid)
