@@ -11,7 +11,7 @@ namespace la_mia_pizzeria_crud_mvc.Models
         public string Name { get; set; }
 
         // relazione N a 1 con Pizza
-        public List<Pizza> Pizzas { get; set; }
+        public List<Pizza> Pizzas { get; set;}
 
         public Category()
         {
