@@ -30,7 +30,15 @@ namespace la_mia_pizzeria_crud_mvc.Models
         [Range(2, 100, ErrorMessage ="Il prezzo deve essere compreso tra 2 e 100")]
         public float Price { get; set; }
 
-        public Pizza() { }
+
+        // relazione 1 a N con category
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
+
+
+        public Pizza()
+        {
+        }
 
         public Pizza(string name, string description, string pathImage, float price)
         {
