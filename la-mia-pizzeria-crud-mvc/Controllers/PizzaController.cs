@@ -57,21 +57,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             {
                 return View("Details", foundedPizza);
             }
-
-            //using (PizzeriaContext db = new PizzeriaContext())
-            //{
-            //    // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
-            //    Pizza? foundedPizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
-
-            //    if (foundedPizza == null)
-            //    {
-            //        return NotFound($"La pizza con id {id} non è stata trovata");
-            //    }
-            //    else
-            //    {
-            //        return View("Details", foundedPizza);
-            //    }
-            //}
         }
 
         // sezione per gli user
@@ -108,12 +93,17 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         }
 
         // create
-
         [HttpGet]
         public IActionResult Create()
         {
-            return View("Create");
+            // devo passare la lista alla create
+            List<Category> categories = _myDataBase.Categories.ToList();
+
+            PizzaFormModel model = new PizzaFormModel { Pizza = new Pizza(), Categories = categories };
+
+            return View("Create", model);
         }
+
 
         [HttpPost]
         //meccanismo di sicurezza che aiuta a prevenire attacchi CSRF
