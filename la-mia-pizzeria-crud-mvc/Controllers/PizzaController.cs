@@ -146,7 +146,11 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             }
             else
             {
-                return View("Update", pizzaToUpdate);
+                List<Category> categories = _myDataBase.Categories.ToList();
+
+                PizzaFormModel model = new PizzaFormModel { Pizza = pizzaToUpdate, Categories = categories };
+
+                return View("Update", model);
             }
         }
 

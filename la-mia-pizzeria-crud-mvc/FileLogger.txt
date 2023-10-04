@@ -5,3 +5,7 @@
 04-10-2023 12:53:30 LOG: L'utente è entrato nella vista Pizza > Index
 04-10-2023 13:05:00 LOG: L'utente è entrato nella vista Pizza > Index
 04-10-2023 13:06:19 LOG: L'utente è entrato nella vista Pizza > Index
+04-10-2023 14:45:53 LOG: L'utente è entrato nella vista Pizza > Index
+04-10-2023 14:46:05 LOG: L'utente è entrato nella vista Pizza > Index
+04-10-2023 14:46:10 LOG: L'utente è entrato nella vista Pizza > Index
+04-10-2023 14:46:12 LOG: L'utente è entrato nella vista Pizza > Index
