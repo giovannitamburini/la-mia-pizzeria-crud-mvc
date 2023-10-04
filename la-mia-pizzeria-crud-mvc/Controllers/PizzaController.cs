@@ -3,6 +3,7 @@ using la_mia_pizzeria_crud_mvc.Database;
 using la_mia_pizzeria_crud_mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace la_mia_pizzeria_crud_mvc.Controllers
 {
@@ -156,24 +157,35 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id, Pizza modifiedPizza)
+        public IActionResult Update(int id, PizzaFormModel data)
         {
             if (!ModelState.IsValid)
             {
-                return View("Update", modifiedPizza);
+                List<Category> categories = _myDataBase.Categories.ToList();
+                data.Categories = categories;
+
+                return View("Update", data);
             }
 
             //using(PizzeriaContext db = new PizzeriaContext())
             //{
             //}
+
+            // oppure metodo alternativo
+            //Pizza? pizzaToUpdate = _myDataBase.Pizzas.Find(id);
+
             Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
 
             if (pizzaToUpdate != null)
             {
-                pizzaToUpdate.Name = modifiedPizza.Name;
-                pizzaToUpdate.Description = modifiedPizza.Description;
-                pizzaToUpdate.PathImage = modifiedPizza.PathImage;
-                pizzaToUpdate.Price = modifiedPizza.Price;
+                //pizzaToUpdate.Name = modifiedPizza.Name;
+                //pizzaToUpdate.Description = modifiedPizza.Description;
+                //pizzaToUpdate.PathImage = modifiedPizza.PathImage;
+                //pizzaToUpdate.Price = modifiedPizza.Price;
+
+                EntityEntry<Pizza> entityEntry = _myDataBase.Entry(pizzaToUpdate);
+                entityEntry.CurrentValues.SetValues(data.Pizza);
 
                 _myDataBase.SaveChanges();
 
