@@ -13,6 +13,17 @@
                     <h5 class="card-title">@Model.Name</h5>
                     <p class="card-text">@Model.Description</p>
                     <p class="card-text">Prezzo: $@Model.Price $</p>
+                    <p class="card-text">
+                        Categoria:
+                        @if(Model.Category != null)
+                        {
+                            <span>@Model.Category.Name</span>
+                        }
+                        else
+                        {
+                            <span>Nessuna categoria</span>
+                        }
+                    </p>
                 </div>
             </div>
         </div>
