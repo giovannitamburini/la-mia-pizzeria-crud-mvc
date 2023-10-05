@@ -57,6 +57,18 @@
                     </select>
                 </div>
 
+                @* select multipla per gli ingredienti *@
+                @* multiple="multiple" *@
+                <div class="mb-3">
+                    <label for="createingredients">Seleziona gli ingredienti:</label>
+                    <select asp-for="SelectedIngredientsId"
+                            multiple="multiple"
+                            size="10"
+                            class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                            asp-items="@Model.Ingredients">
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Crea</button>
             </form>
 
