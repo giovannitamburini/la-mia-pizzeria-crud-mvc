@@ -118,7 +118,35 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 List<Category> categories = _myDataBase.Categories.ToList();
                 data.Categories = categories;
 
+                // ingredienti
+                List<SelectListItem> allIngredientsSelectList = new List<SelectListItem>();
+                List<Ingredient> dbAllIngredients = _myDataBase.Ingredients.ToList();
+
+                foreach(Ingredient ingredient in dbAllIngredients)
+                {
+                    allIngredientsSelectList.Add(new SelectListItem { Text = ingredient.Name, Value = ingredient.Id.ToString() });
+                }
+
+                data.Ingredients = allIngredientsSelectList;
+
                 return View("Create", data);
+            }
+
+            data.Pizza.Ingredients = new List<Ingredient>();
+
+            if(data.SelectedIngredientsId != null)
+            {
+                foreach(string ingredientSelectedId in data.SelectedIngredientsId)
+                {
+                    int intIngredientSelectedId = int.Parse(ingredientSelectedId);
+
+                    Ingredient? ingredientInDb = _myDataBase.Ingredients.Where(ingredient => ingredient.Id == intIngredientSelectedId).FirstOrDefault();
+
+                    if(ingredientInDb != null)
+                    {
+                        data.Pizza.Ingredients.Add(ingredientInDb);
+                    }
+                }
             }
             
             //_myDataBase.Pizzas.Add(pizzaCreated);
