@@ -200,7 +200,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public IActionResult Delete(int id)
         {
             //using (PizzeriaContext db = new PizzeriaContext())

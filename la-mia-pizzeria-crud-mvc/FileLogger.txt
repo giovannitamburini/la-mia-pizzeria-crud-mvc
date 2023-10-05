@@ -14,3 +14,4 @@
 04-10-2023 15:39:19 LOG: L'utente è entrato nella vista Pizza > Index
 04-10-2023 15:39:27 LOG: L'utente è entrato nella vista Pizza > Index
 04-10-2023 16:42:48 LOG: L'utente è entrato nella vista Pizza > Index
+04-10-2023 16:52:57 LOG: L'utente è entrato nella vista Pizza > Index
