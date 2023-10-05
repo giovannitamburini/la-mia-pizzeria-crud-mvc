@@ -28,6 +28,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             _myDataBase = db;
         }
 
+
         public IActionResult Index()
         {
             //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
@@ -39,10 +40,14 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             return View("index", pizzasList);
         }
 
+
+        // DETAILS -------------------------------
+
         public IActionResult Details(int id)
         {
             // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
-            Pizza? foundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).FirstOrDefault();
+            // aggiungo l'include degli ingredienti
+            Pizza? foundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).Include(pizza => pizza.Ingredients).FirstOrDefault();
 
             if (foundedPizza == null)
             {
@@ -54,32 +59,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             }
         }
 
-        // sezione per gli user
-        public IActionResult UserIndex()
-        {
-            //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
-            _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
-
-            List<Pizza> UserpizzasList = _myDataBase.Pizzas.ToList<Pizza>();
-
-            return View("UserIndex", UserpizzasList);
-        }
-
-        public IActionResult UserDetails(int id)
-        {
-            // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
-            Pizza? userFoundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
-
-            if (userFoundedPizza == null)
-            {
-                return NotFound($"La pizza con id {id} non è stata trovata");
-            }
-            else
-            {
-                return View("UserDetails", userFoundedPizza);
-            }
-        }
 
         // CREATE ---------------------------------
 
@@ -95,9 +75,9 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             // prendo dal database la lista degli ingredienti
             List<Ingredient> dbAllIngredients = _myDataBase.Ingredients.ToList();
 
-            foreach(Ingredient ingredient in dbAllIngredients)
+            foreach (Ingredient ingredient in dbAllIngredients)
             {
-                allIngredientsSelectList.Add( new SelectListItem { Text = ingredient.Name, Value = ingredient.Id.ToString() });
+                allIngredientsSelectList.Add(new SelectListItem { Text = ingredient.Name, Value = ingredient.Id.ToString() });
             }
 
             // aggiungo la lista degli ingredienti al modello che passo alla vista
@@ -122,7 +102,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 List<SelectListItem> allIngredientsSelectList = new List<SelectListItem>();
                 List<Ingredient> dbAllIngredients = _myDataBase.Ingredients.ToList();
 
-                foreach(Ingredient ingredient in dbAllIngredients)
+                foreach (Ingredient ingredient in dbAllIngredients)
                 {
                     allIngredientsSelectList.Add(new SelectListItem { Text = ingredient.Name, Value = ingredient.Id.ToString() });
                 }
@@ -134,21 +114,21 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
             data.Pizza.Ingredients = new List<Ingredient>();
 
-            if(data.SelectedIngredientsId != null)
+            if (data.SelectedIngredientsId != null)
             {
-                foreach(string ingredientSelectedId in data.SelectedIngredientsId)
+                foreach (string ingredientSelectedId in data.SelectedIngredientsId)
                 {
                     int intIngredientSelectedId = int.Parse(ingredientSelectedId);
 
                     Ingredient? ingredientInDb = _myDataBase.Ingredients.Where(ingredient => ingredient.Id == intIngredientSelectedId).FirstOrDefault();
 
-                    if(ingredientInDb != null)
+                    if (ingredientInDb != null)
                     {
                         data.Pizza.Ingredients.Add(ingredientInDb);
                     }
                 }
             }
-            
+
             //_myDataBase.Pizzas.Add(pizzaCreated);
 
             _myDataBase.Pizzas.Add(data.Pizza);
@@ -156,6 +136,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         // UPDATE ---------------------------------
 
@@ -236,6 +217,36 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             else
             {
                 return NotFound("La pizza che vorresti eliminare non è stata trovata");
+            }
+        }
+
+
+        // USER SECTION -----------------------------------
+
+        // sezione per gli user
+        public IActionResult UserIndex()
+        {
+            //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
+
+            _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
+
+            List<Pizza> UserpizzasList = _myDataBase.Pizzas.ToList<Pizza>();
+
+            return View("UserIndex", UserpizzasList);
+        }
+
+        public IActionResult UserDetails(int id)
+        {
+            // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
+            Pizza? userFoundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+            if (userFoundedPizza == null)
+            {
+                return NotFound($"La pizza con id {id} non è stata trovata");
+            }
+            else
+            {
+                return View("UserDetails", userFoundedPizza);
             }
         }
     }
