@@ -153,10 +153,10 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             {
                 List<Category> categories = _myDataBase.Categories.ToList();
 
-                List<Ingredient> ingredients = _myDataBase.Ingredients.ToList();
+                List<Ingredient> dbIngredientsList = _myDataBase.Ingredients.ToList();
                 List<SelectListItem> selectListItems = new List<SelectListItem>();
 
-                foreach(Ingredient ingredient in ingredients)
+                foreach (Ingredient ingredient in dbIngredientsList)
                 {
                     selectListItems.Add(new SelectListItem { Value = ingredient.Id.ToString(), Text = ingredient.Name, Selected = pizzaToUpdate.Ingredients.Any(ingredientAssociated => ingredientAssociated.Id == ingredient.Id) });
                 }
@@ -176,24 +176,56 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 List<Category> categories = _myDataBase.Categories.ToList();
                 data.Categories = categories;
 
+                // ingredienti
+                List<Ingredient> dbIngredientsList = _myDataBase.Ingredients.ToList();
+                List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+                foreach (Ingredient ingredient in dbIngredientsList)
+                {
+                    selectListItems.Add(new SelectListItem { Value = ingredient.Id.ToString(), Text = ingredient.Name });
+                }
+
+                data.Ingredients = selectListItems;
+
                 return View("Update", data);
             }
 
             // oppure metodo alternativo
             //Pizza? pizzaToUpdate = _myDataBase.Pizzas.Find(id);
 
-            Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+            Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Ingredients).FirstOrDefault();
 
 
             if (pizzaToUpdate != null)
             {
-                //pizzaToUpdate.Name = modifiedPizza.Name;
-                //pizzaToUpdate.Description = modifiedPizza.Description;
-                //pizzaToUpdate.PathImage = modifiedPizza.PathImage;
-                //pizzaToUpdate.Price = modifiedPizza.Price;
+                //EntityEntry<Pizza> entityEntry = _myDataBase.Entry(pizzaToUpdate);
+                //entityEntry.CurrentValues.SetValues(data.Pizza);
 
-                EntityEntry<Pizza> entityEntry = _myDataBase.Entry(pizzaToUpdate);
-                entityEntry.CurrentValues.SetValues(data.Pizza);
+                // devo svuotare la lista degli ingredienti associati alla pizza da modificare
+                if (pizzaToUpdate.Ingredients != null)
+                {
+                    pizzaToUpdate.Ingredients.Clear();
+                }
+
+                pizzaToUpdate.Name = data.Pizza.Name;
+                pizzaToUpdate.Description = data.Pizza.Description;
+                pizzaToUpdate.PathImage = data.Pizza.PathImage;
+                pizzaToUpdate.Price = data.Pizza.Price;
+
+                if (data.SelectedIngredientsId != null)
+                {
+                    foreach (string ingredientSelectedId in data.SelectedIngredientsId)
+                    {
+                        int intIngredientId = int.Parse(ingredientSelectedId);
+
+                        Ingredient? ingredientInDb = _myDataBase.Ingredients.Where(ingredient => ingredient.Id == intIngredientId).FirstOrDefault();
+
+                        if (ingredientInDb != null)
+                        {
+                            pizzaToUpdate.Ingredients.Add(ingredientInDb);
+                        }
+                    }
+                }
 
                 _myDataBase.SaveChanges();
 
