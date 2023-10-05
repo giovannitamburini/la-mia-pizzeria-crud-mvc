@@ -2,6 +2,7 @@
 using la_mia_pizzeria_crud_mvc.Database;
 using la_mia_pizzeria_crud_mvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -21,10 +22,9 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         {
             //_myConsoleLogger = new CustomConsoleLogger();
             //_myFileLogger = new CustomFileLogger();
-
             //_myConsoleLogger = _consoleLogger;
-            _myFileLogger = _fileLogger;
 
+            _myFileLogger = _fileLogger;
             _myDataBase = db;
         }
 
@@ -37,13 +37,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             List<Pizza> pizzasList = _myDataBase.Pizzas.ToList<Pizza>();
 
             return View("index", pizzasList);
-
-            //using (PizzeriaContext db = new PizzeriaContext())
-            //{
-            //    List<Pizza> pizzasList = db.Pizzas.ToList<Pizza>();
-
-            //    return View("index", pizzasList);
-            //}
         }
 
         public IActionResult Details(int id)
@@ -64,9 +57,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         // sezione per gli user
         public IActionResult UserIndex()
         {
-            //using (PizzeriaContext db = new PizzeriaContext())
-            //{
-            //}
             //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
 
             _myFileLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
@@ -78,9 +68,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         public IActionResult UserDetails(int id)
         {
-            //using (PizzeriaContext db = new PizzeriaContext())
-            //{
-            //}
             // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
             Pizza? userFoundedPizza = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
@@ -94,14 +81,27 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             }
         }
 
-        // create
+        // CREATE ---------------------------------
+
         [HttpGet]
         public IActionResult Create()
         {
             // devo passare la lista alla create
             List<Category> categories = _myDataBase.Categories.ToList();
 
-            PizzaFormModel model = new PizzaFormModel { Pizza = new Pizza(), Categories = categories };
+            // istanzio una nuova lista di tipo SelectListItem che andrò a popolare
+            List<SelectListItem> allIngredientsSelectList = new List<SelectListItem>();
+
+            // prendo dal database la lista degli ingredienti
+            List<Ingredient> dbAllIngredients = _myDataBase.Ingredients.ToList();
+
+            foreach(Ingredient ingredient in dbAllIngredients)
+            {
+                allIngredientsSelectList.Add( new SelectListItem { Text = ingredient.Name, Value = ingredient.Id.ToString() });
+            }
+
+            // aggiungo la lista degli ingredienti al modello che passo alla vista
+            PizzaFormModel model = new PizzaFormModel { Pizza = new Pizza(), Categories = categories, Ingredients = allIngredientsSelectList };
 
             return View("Create", model);
         }
@@ -120,26 +120,20 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
                 return View("Create", data);
             }
-
-            //using(PizzeriaContext db = new PizzeriaContext())
-            //{
-            //}
+            
             //_myDataBase.Pizzas.Add(pizzaCreated);
+
             _myDataBase.Pizzas.Add(data.Pizza);
             _myDataBase.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        // update
+        // UPDATE ---------------------------------
 
         [HttpGet]
         public IActionResult Update(int id)
         {
-            //using(PizzeriaContext db = new PizzeriaContext())
-            //{
-            //}
-
             Pizza? pizzaToUpdate = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
             if (pizzaToUpdate == null)
@@ -168,10 +162,6 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
                 return View("Update", data);
             }
 
-            //using(PizzeriaContext db = new PizzeriaContext())
-            //{
-            //}
-
             // oppure metodo alternativo
             //Pizza? pizzaToUpdate = _myDataBase.Pizzas.Find(id);
 
@@ -198,13 +188,13 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             }
         }
 
+
+        // DELETE -------------------------------
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            //using (PizzeriaContext db = new PizzeriaContext())
-            //{
-            //}
             Pizza? pizzaToDelete = _myDataBase.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
             if (pizzaToDelete != null)
