@@ -7,15 +7,22 @@
 <div class="container py-5">
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
+
             <div class="card">
+                @* immagine *@
                 <img src="@Model.PathImage" class="card-img-top" alt="@Model.Name">
+
                 <div class="card-body">
+                    @* nome *@
                     <h5 class="card-title">@Model.Name</h5>
-                    <p class="card-text">Ingredienti: @Model.Description</p>
+                    @* descrizione *@
+                    <p class="card-text">@Model.Description</p>
+                    @* prezzo *@
                     <p class="card-text">Prezzo: $@Model.Price $</p>
+                    @* categoria *@
                     <p class="card-text">
                         Categoria:
-                        @if(Model.Category != null)
+                        @if (Model.Category != null)
                         {
                             <span>@Model.Category.Name</span>
                         }
@@ -24,6 +31,21 @@
                             <span>Nessuna categoria</span>
                         }
                     </p>
+                    @* ingredienti *@
+                    @if (Model.Ingredients != null && Model.Ingredients.Count > 0)
+                    {
+                        <strong>Ingredienti:</strong>
+                        <ul>
+                            @foreach (Ingredient ingredient in Model.Ingredients)
+                            {
+                                <li>@ingredient.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>Nessun ingrediente presente</span>
+                    }
                 </div>
             </div>
         </div>
