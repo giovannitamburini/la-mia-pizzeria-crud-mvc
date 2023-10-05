@@ -35,6 +35,9 @@ namespace la_mia_pizzeria_crud_mvc.Models
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
 
+        // relazione N a N con ingredient
+        // aggiungo il ? per includere la possibilità in cui ad una pizza non è associato nessun ingrediente
+        public List<Ingredient>? Ingredients { get; set; }
 
         public Pizza()
         {
