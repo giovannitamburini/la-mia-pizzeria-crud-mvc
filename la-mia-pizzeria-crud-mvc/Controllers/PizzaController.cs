@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace la_mia_pizzeria_crud_mvc.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles = "USER, ADMIN")]
     public class PizzaController : Controller
     {
         // private CustomConsoleLogger _myConsoleLogger;
@@ -31,7 +31,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             _myDataBase = db;
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
             //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > Index");
@@ -46,6 +46,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         // DETAILS -------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Details(int id)
         {
             // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
@@ -66,6 +67,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         // CREATE ---------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -89,7 +91,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             return View("Create", model);
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         //meccanismo di sicurezza che aiuta a prevenire attacchi CSRF
         [ValidateAntiForgeryToken]
@@ -143,6 +145,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         // UPDATE ---------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -170,6 +173,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             }
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(int id, PizzaFormModel data)
@@ -243,6 +247,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
 
         // DELETE -------------------------------
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -267,6 +272,8 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
         // USER SECTION -----------------------------------
 
         // sezione per gli user
+
+        [Authorize(Roles = "ADMIN, USER")]
         public IActionResult UserIndex()
         {
             //_myConsoleLogger.WriteLog("L'utente è entrato nella vista Pizza > UserIndex");
@@ -278,6 +285,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers
             return View("UserIndex", UserpizzasList);
         }
 
+        [Authorize(Roles = "ADMIN, USER")]
         public IActionResult UserDetails(int id)
         {
             // punto interrogativo per mettere in conto che potrei ricevere un oggetto pizza nullo
