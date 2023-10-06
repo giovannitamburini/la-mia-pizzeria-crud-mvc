@@ -105,3 +105,6 @@
 06-10-2023 15:26:39 LOG: L'utente è entrato nella vista Pizza > UserIndex
 06-10-2023 15:27:41 LOG: L'utente è entrato nella vista Pizza > Index
 06-10-2023 15:28:24 LOG: L'utente è entrato nella vista Pizza > UserIndex
+06-10-2023 15:32:55 LOG: L'utente è entrato nella vista Pizza > Index
+06-10-2023 15:34:21 LOG: L'utente è entrato nella vista Pizza > Index
+06-10-2023 15:37:04 LOG: L'utente è entrato nella vista Pizza > Index

@@ -41,33 +41,38 @@ else
                                 <td>@pizza.Price $</td>
                                 <td>
                                     <a class="btn btn-info" href="@Url.Action("Details", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-magnifying-glass"></i></a>
-                                    <a class="btn btn-warning" href="@Url.Action("Update", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-pencil"></i></a>
 
-                                    @* Button per richiamare il modale *@
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@("#deleteModal" + pizza.Id)">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                    @* Modal *@
-                                    <div class="modal fade" id="@("deleteModal" + pizza.Id)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content bg-dark">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete pizza</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure you want to eliminate pizza permanently?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
-                                                        @Html.AntiForgeryToken()
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                                    </form>
+                                    @* autorizzazione *@
+                                    @if (User.IsInRole("ADMIN"))
+                                    {
+                                        <a class="btn btn-warning" href="@Url.Action("Update", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-pencil"></i></a>
+
+                                        @* Button per richiamare il modale *@
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@("#deleteModal" + pizza.Id)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                        @* Modal *@
+                                        <div class="modal fade" id="@("deleteModal" + pizza.Id)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content bg-dark">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete pizza</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to eliminate pizza permanently?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
+                                                            @Html.AntiForgeryToken()
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 </td>
 
                             </tr>
@@ -76,12 +81,15 @@ else
                     </tbody>
                 </table>
 
-                <div class="text-center py-3">
-                    @* link per la create di pizza *@
-                    <a class="btn btn-warning" href="@Url.Action("Create", "Pizza")">
-                        Aggiungi nuova pizza
-                    </a>
-                </div>
+                @if (User.IsInRole("ADMIN"))
+                {
+                    <div class="text-center py-3">
+                        @* link per la create di pizza *@
+                        <a class="btn btn-warning" href="@Url.Action("Create", "Pizza")">
+                            Aggiungi nuova pizza
+                        </a>
+                    </div>
+                }
 
 
             </div>
