@@ -1,12 +1,16 @@
 ﻿<header>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/Pizza/Index">
-                <img src="~/img/logo_pizza.png" alt="Pizza" width="50" height="50">
-                Pizza
-            </a>
 
-            <partial name="_LoginPartial" />
+            <div class="d-flex">
+
+                <a class="navbar-brand" href="/Pizza/Index">
+                    <img src="~/img/logo_pizza.png" alt="Pizza" width="50" height="50">
+                    Pizza
+                </a>
+
+                <partial name="./_LoginPartial" />
+            </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
