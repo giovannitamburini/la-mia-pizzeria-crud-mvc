@@ -68,6 +68,20 @@
                     </select>
                 </div>
 
+                @* <div class="mb-3">
+                    @foreach (var ingredient in Model.Ingredients)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="selectedIngredient" value="@ingredient.Value" @(selectedIngredients.Contains(ingredient.Value) ? "checked" : "") id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                @ingredient.Text
+                            </label>
+                        </div>
+                    }
+                </div> *@
+
+
+
                 <button type="submit" class="btn btn-primary">Crea</button>
             </form>
 

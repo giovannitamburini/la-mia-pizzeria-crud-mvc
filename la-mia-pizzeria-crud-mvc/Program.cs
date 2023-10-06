@@ -32,6 +32,8 @@ namespace la_mia_pizzeria_crud_mvc
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.MapControllerRoute(
