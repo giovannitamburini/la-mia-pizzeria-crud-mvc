@@ -17,8 +17,7 @@ namespace la_mia_pizzeria_crud_mvc
 
             builder.Services.AddDbContext<PizzeriaContext>();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddEntityFrameworkStores<PizzeriaContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<PizzeriaContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
