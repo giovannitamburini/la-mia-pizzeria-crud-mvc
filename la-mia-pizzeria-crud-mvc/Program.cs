@@ -1,5 +1,7 @@
 using la_mia_pizzeria_crud_mvc.CustomLoggers;
 using la_mia_pizzeria_crud_mvc.Database;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_crud_mvc
 {
@@ -8,6 +10,13 @@ namespace la_mia_pizzeria_crud_mvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+                        var connectionString = builder.Configuration.GetConnectionString("PizzeriaContextConnection") ?? throw new InvalidOperationException("Connection string 'PizzeriaContextConnection' not found.");
+
+                                    builder.Services.AddDbContext<PizzeriaContext>(options =>
+                options.UseSqlServer(connectionString));
+
+                                                builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<PizzeriaContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
