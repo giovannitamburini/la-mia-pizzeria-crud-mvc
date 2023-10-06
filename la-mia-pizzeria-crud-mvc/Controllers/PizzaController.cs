@@ -1,6 +1,7 @@
 ﻿using la_mia_pizzeria_crud_mvc.CustomLoggers;
 using la_mia_pizzeria_crud_mvc.Database;
 using la_mia_pizzeria_crud_mvc.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace la_mia_pizzeria_crud_mvc.Controllers
 {
+
+    [Authorize]
     public class PizzaController : Controller
     {
         // private CustomConsoleLogger _myConsoleLogger;
